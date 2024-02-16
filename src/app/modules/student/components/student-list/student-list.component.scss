@@ -1,0 +1,6 @@
+.action{font-size:14px; font-weight:600; cursor: pointer; background: none; border:none;
+    img{display:inline-block; margin-right:4px; max-height:20px;}
+    &:disabled{
+        img{opacity:.6;}
+    }
+}

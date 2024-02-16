@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-between mb-2">
+    <h2>Students</h2>
+    <div><a routerLink="/add-student" class="btn btn-primary btn-sm">+ Add Student</a></div>
+  </div>
+  
+  <table class="table table-bordered table-light">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Class</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Date of Birth</th>
+        <th scope="col">Email</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="studentData && studentData.length > 0; else noRecords">
+      <tr *ngFor="let item of studentData; let i=index">
+        <td class="text-center">{{i+1}}</td>
+        <td>{{item.firstName}} {{item.lastName}}</td>
+        <td class="text-center">{{item.class}}</td>
+        <td>{{item.gender! | gender}}</td>
+        <td>{{item.dob | date}}</td>
+        <td>{{item.email}}</td>
+        <td class="text-center">
+          <span (click)="openModal(removeItemModal,item.id!)" class="action"><img src="assets/images/icon-remove.svg" alt=""></span>
+          <span [routerLink]="'/add-student/'+item.id" class="action"><img src="assets/images/icon-edit.svg" alt=""></span>
+        </td>
+      </tr>
+    </tbody>
+    <ng-template #noRecords>
+      <tr><td class="text-center" colspan="7"><br> No Records found <br> <br></td></tr>
+    </ng-template>
+  </table>
+
+
+  <ng-template #removeItemModal>
+    <div class="modal-body">
+      You want to delete the student?
+      <div class="text-end mt-3">
+        <button class="btn btn-secondary btn-sm" (click)="modalRef?.hide()">No</button> &nbsp; 
+        <button class="btn btn-primary btn-sm" (click)="removeItem(modalRef?.id)" >Yes</button>
+      </div>
+    </div>
+  </ng-template>
